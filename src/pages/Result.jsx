@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://10.227.192.11:5000";
+const API = "https://faculty-voting-backend.onrender.com";
 
 function Result() {
   const [candidates, setCandidates] = useState([]);

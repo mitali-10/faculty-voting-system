@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const API = "http://10.227.192.11:5000";
+const API = "https://faculty-voting-backend.onrender.com";
 
 function DonutChart({ voted, total }) {
   const pct = total > 0 ? (voted / total) * 100 : 0;

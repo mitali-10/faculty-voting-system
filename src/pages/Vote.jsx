@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import { useNavigate } from "react-router-dom";
 
-const API = "http://10.227.192.11:5000";
+const API = "https://faculty-voting-backend.onrender.com";
 const EMAILJS_SERVICE_ID = "service_cit51mn";
 const EMAILJS_TEMPLATE_ID_VOTE = "template_vote_confirm"; // alag template vote confirmation ke liye
 const EMAILJS_PUBLIC_KEY = "W0z3JWrp38ZyyQWeN";

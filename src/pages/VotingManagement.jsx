@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
-const API = "http://10.227.192.11:5000";
+const API = "https://faculty-voting-backend.onrender.com";
 const EMAILJS_SERVICE_ID = "service_cit51mn";
 const EMAILJS_TEMPLATE_ID = "template_ivx5de5";
 const EMAILJS_PUBLIC_KEY = "W0z3JWrp38ZyyQWeN";
@@ -256,11 +256,15 @@ function VotingManagement() {
                 {c.candidateLoginId
                   ? <div style={{ color: "#2563eb", fontSize: "0.78rem" }}>ID: {c.candidateLoginId}</div>
                   : <div style={{ color: "#f59e0b", fontSize: "0.78rem" }}>Login ID set nahi</div>}
+
+                  
               </div>
               <span style={{ background: "#eff6ff", color: "#1e40af", padding: "2px 8px", borderRadius: "99px", fontSize: "0.8rem" }}>
                 {c.votes} votes
               </span>
             </div>
+
+
             <div style={{ display: "flex", gap: "6px" }}>
               <button onClick={() => handleEdit(c)}
                 style={{ padding: "5px 12px", background: "#f3f4f6", border: "1px solid #d1d5db", borderRadius: "5px", cursor: "pointer", fontSize: "0.82rem" }}>

@@ -5,7 +5,7 @@ const EMAILJS_SERVICE_ID = "service_cit51mn";
 const EMAILJS_TEMPLATE_ID = "template_ivx5de5";
 const EMAILJS_PUBLIC_KEY = "W0z3JWrp38ZyyQWeN";
 
-const API = "http://10.227.192.11:5000";
+const API = "https://faculty-voting-backend.onrender.com";
 const VOTE_LINK = "http://10.227.192.11:3000/vote";
 
 const emptyForm = { enrollmentNo: "", name: "", email: "", password: "" };
