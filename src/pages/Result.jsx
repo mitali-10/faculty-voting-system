@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API = "https://faculty-voting-backend.onrender.com";
+const API = "http://10.227.192.11:5000";
 
 function Result() {
   const [candidates, setCandidates] = useState([]);
@@ -71,17 +71,19 @@ function Result() {
         ) : (
           candidates.map((c, index) => {
             const percentage = totalVotes > 0 ? ((c.votes / totalVotes) * 100).toFixed(1) : 0;
+            // Same votes = same rank
+            const rank = candidates.filter(x => x.votes > c.votes).length + 1;
             return (
               <div key={c._id} style={{
                 background: "white",
-                border: index === 0 ? "2px solid #2563eb" : "1px solid #e5e7eb",
+                border: rank === 1 ? "2px solid #2563eb" : "1px solid #e5e7eb",
                 borderRadius: "12px", padding: "18px 20px",
                 marginBottom: "12px",
                 display: "flex", alignItems: "center", gap: "16px"
               }}>
                 {/* Rank Number */}
                 <div style={{ fontSize: "1.1rem", fontWeight: "700", color: "#6b7280", minWidth: "28px", textAlign: "center" }}>
-                  {index + 1}
+                  {rank}
                 </div>
 
                 {/* Photo */}
@@ -107,7 +109,7 @@ function Result() {
                   {/* Progress Bar */}
                   <div style={{ background: "#e5e7eb", borderRadius: "99px", height: "6px" }}>
                     <div style={{
-                      background: index === 0 ? "#2563eb" : "#9ca3af",
+                      background: rank === 1 ? "#2563eb" : "#9ca3af",
                       height: "100%", borderRadius: "99px",
                       width: `${percentage}%`, transition: "width 1s ease"
                     }} />
