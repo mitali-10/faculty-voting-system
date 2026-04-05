@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-const API = "https://faculty-voting-backend.onrender.com";
+const API = "http://10.227.192.11:5000";
 
 function CandidateDashboard() {
   const navigate = useNavigate();
@@ -88,7 +88,9 @@ function CandidateDashboard() {
   const getPhoto = (name, photo) =>
     photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || "C")}&size=100&background=374151&color=fff&rounded=true`;
 
-  const myRank = candidates.findIndex(c => c._id === candidateData?._id || c.name === candidateData?.name) + 1;
+  // Same votes = same rank
+  const myCandidate = candidates.find(c => c._id === candidateData?._id || c.name === candidateData?.name);
+  const myRank = myCandidate ? candidates.filter(x => x.votes > myCandidate.votes).length + 1 : 0;
   const fmt = (d) => d ? new Date(d).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : "";
 
   return (
@@ -244,7 +246,9 @@ function CandidateDashboard() {
               const isMe = c._id === candidateData?._id || c.name === candidateData?.name;
               return (
                 <div key={c._id} style={{ background: "white", border: isMe ? "2px solid #2563eb" : index === 0 ? "2px solid #1e293b" : "1px solid #e5e7eb", borderRadius: "10px", padding: "14px 16px", marginBottom: "10px", display: "flex", alignItems: "center", gap: "14px" }}>
-                  <div style={{ fontWeight: "700", color: "#9ca3af", minWidth: "20px" }}>{index + 1}</div>
+                  <div style={{ fontWeight: "700", color: "#9ca3af", minWidth: "20px" }}>
+                    {candidates.filter(x => x.votes > c.votes).length + 1}
+                  </div>
                   <img src={getPhoto(c.name, c.photo)} alt={c.name} style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", border: "1px solid #e5e7eb" }} />
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
