@@ -6,7 +6,7 @@ const EMAILJS_TEMPLATE_ID = "template_ivx5de5";
 const EMAILJS_PUBLIC_KEY = "W0z3JWrp38ZyyQWeN";
 
 const API = "https://faculty-voting-backend.onrender.com";
-const VOTE_LINK = "https://faculty-voting-backend.onrender.com";
+const VOTE_LINK = "https://faculty-voting-system-mitali.vercel.app/";
 
 const emptyForm = { enrollmentNo: "", name: "", email: "", password: "" };
 
@@ -106,8 +106,8 @@ function StudentManagement() {
            fetchStudents();
       } else {
         showMessage(data.message, "error");
-        }  
-    }  catch { showMessage("Server Error", "error"); }
+      }  
+    } catch { showMessage("Server Error", "error"); }
     finally { setLoading(false); }
   };
 

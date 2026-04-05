@@ -295,7 +295,7 @@ export default function Login() {
             to_name: "Admin",
             enrollment_no: adminForgotUser,
             password: data.otp,
-            vote_link: "https://faculty-voting-backend.onrender.com"
+            vote_link: "https://faculty-voting-system-mitali.vercel.app/"
           }, "W0z3JWrp38ZyyQWeN");
         } catch { console.log("Email send failed but OTP generated"); }
         setAdminOtpSent(true);

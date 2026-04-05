@@ -5,7 +5,7 @@ const API = "https://faculty-voting-backend.onrender.com";
 const EMAILJS_SERVICE_ID = "service_cit51mn";
 const EMAILJS_TEMPLATE_ID = "template_ivx5de5";
 const EMAILJS_PUBLIC_KEY = "W0z3JWrp38ZyyQWeN";
-const VOTE_LINK = "https://faculty-voting-backend.onrender.com";
+const VOTE_LINK = "https://faculty-voting-system-mitali.vercel.app/";
 
 function Settings() {
   const [stats, setStats] = useState(null);
