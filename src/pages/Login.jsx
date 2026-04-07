@@ -225,7 +225,7 @@ export default function Login() {
   const goTo = (s) => { setMsg({ text: "", type: "" }); setScreen(s); };
 
   const handleLogin = async () => {
-    if (!username.trim() || !password.trim()) { showMsg("ID aur password dono zaroori hain", "error"); return; }
+    if (!username.trim() || !password.trim()) { showMsg("fill Id and password", "error"); return; }
     setLoading(true);
     try {
       if (role === "admin") {
@@ -244,14 +244,14 @@ export default function Login() {
           if (username === "AdminMitali" && password === "@Mitali10") {
             localStorage.setItem("role", "admin");
             navigate("/admin");
-          } else showMsg("Invalid admin credentials", "error");
+          } else showMsg("Invalid admin", "error");
         }
-        return;
-      }
-      if (role === "student") {
-        const res = await fetch(`${API}/api/students/login`, {
+            return;
+           }
+             if (role === "student") {
+          const res = await fetch(`${API}/api/students/login`, {
           method: "POST", headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ enrollmentNo: username.trim(), password: password.trim() })
+      body: JSON.stringify({ enrollmentNo: username.trim(), password: password.trim() })
         });
         const data = await res.json();
         if (data.success && data.student) {
@@ -273,12 +273,12 @@ export default function Login() {
           navigate("/candidate-dashboard");
         } else showMsg(data.message || "Login failed", "error");
       }
-    } catch { showMsg("Server se connect nahi ho pa raha", "error"); }
+    } catch { showMsg("Server not connectes", "error"); }
     finally { setLoading(false); }
   };
 
   const handleAdminSendOtp = async () => {
-    if (!adminForgotUser.trim()) { showMsg("Admin username daalo", "error"); return; }
+    if (!adminForgotUser.trim()) { showMsg("username required", "error"); return; }
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/admin-auth/send-otp`, {
@@ -299,16 +299,16 @@ export default function Login() {
           }, "W0z3JWrp38ZyyQWeN");
         } catch { console.log("Email send failed but OTP generated"); }
         setAdminOtpSent(true);
-        showMsg("OTP aapki email par bhej di gayi hai!", "success");
-      } else showMsg(data.message, "error");
+          showMsg("OTP sent!", "success");
+      }  else showMsg(data.message, "error");
     } catch { showMsg("Server error", "error"); }
     finally { setLoading(false); }
   };
 
   const handleAdminResetPass = async () => {
-    if (!adminOtpInput.trim()) { showMsg("OTP daalo", "error"); return; }
-    if (adminNewPass.length < 4) { showMsg("Password kam se kam 4 characters", "error"); return; }
-    if (adminNewPass !== adminConfirmPass) { showMsg("Passwords match nahi kar rahe", "error"); return; }
+      if (!adminOtpInput.trim()) { showMsg("OTP required", "error"); return; }
+    if (adminNewPass.length < 4) { showMsg("Password atleast 4 letters", "error"); return; }
+  if (adminNewPass !== adminConfirmPass) { showMsg("Passwords not match", "error"); return; }
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/admin-auth/reset-password`, {
@@ -317,7 +317,7 @@ export default function Login() {
       });
       const data = await res.json();
       if (data.success) {
-        setDoneMsg("Admin password reset ho gaya! Naye password se login karein.");
+        setDoneMsg("Admin password reset successfully.");
         setAdminOtpSent(false); setAdminOtpInput(""); setAdminNewPass(""); setAdminConfirmPass(""); setAdminForgotUser("");
         goTo("done");
       } else showMsg(data.message, "error");
@@ -326,10 +326,10 @@ export default function Login() {
   };
 
   const handleChangePassword = async () => {
-    if (!forgotId.trim()) { showMsg("ID daalna zaroori hai", "error"); return; }
-    if (!oldPass.trim()) { showMsg("Purana password daalna zaroori hai", "error"); return; }
-    if (newPass.length < 4) { showMsg("Naya password kam se kam 4 characters", "error"); return; }
-    if (newPass !== confirmPass) { showMsg("Naya password aur confirm password alag hain", "error"); return; }
+    if (!forgotId.trim()) { showMsg("ID required", "error"); return; }
+    if (!oldPass.trim()) { showMsg("old password required", "error"); return; }
+    if (newPass.length < 4) { showMsg("new password atleast 4 letters", "error"); return; }
+    if (newPass !== confirmPass) { showMsg("Passwords not match", "error"); return; }
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/auth/change-password`, {
@@ -337,14 +337,14 @@ export default function Login() {
         body: JSON.stringify({ userId: forgotId.trim(), userType: forgotRole, oldPassword: oldPass, newPassword: newPass })
       });
       const data = await res.json();
-      if (data.success) { setDoneMsg("Password successfully change ho gaya! Ab login kar sakte hain."); goTo("done"); }
+      if (data.success) { setDoneMsg("Password changed successfully."); goTo("done"); }
       else showMsg(data.message, "error");
     } catch { showMsg("Server error", "error"); }
     finally { setLoading(false); }
   };
 
   const handleForgotRequest = async () => {
-    if (!forgotId.trim()) { showMsg("ID daalna zaroori hai", "error"); return; }
+    if (!forgotId.trim()) { showMsg("ID required", "error"); return; }
     setLoading(true);
     try {
       const res = await fetch(`${API}/api/auth/forgot-password`, {
@@ -352,7 +352,7 @@ export default function Login() {
         body: JSON.stringify({ userId: forgotId.trim(), userType: forgotRole })
       });
       const data = await res.json();
-      if (data.success) { setDoneMsg("Request admin ke paas pahunch gayi. Admin jald hi aapka password reset karega."); goTo("done"); }
+      if (data.success) { setDoneMsg("Forgot password request submitted successfully."); goTo("done"); }
       else showMsg(data.message, "error");
     } catch { showMsg("Server error", "error"); }
     finally { setLoading(false); }
@@ -395,7 +395,7 @@ export default function Login() {
               <div className="field">
                 <label>{role === "student" ? "Enrollment No" : role === "candidate" ? "Candidate ID" : "Username"}</label>
                 <input type="text"
-                  placeholder={role === "student" ? "e.g. 0901CS211001" : role === "candidate" ? "e.g. CAN001" : "Admin username"}
+                  placeholder={role === "student" ? "101" : role === "candidate" ? "e.g. F1" : "Admin username"}
                   value={username} onChange={e => setUsername(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && handleLogin()}
                 />
@@ -404,7 +404,7 @@ export default function Login() {
               <div className="field">
                 <label>Password</label>
                 <div style={{ position: "relative" }}>
-                  <input type={showPass ? "text" : "password"} placeholder="Password daalo"
+                  <input type={showPass ? "text" : "password"} placeholder="Password"
                     value={password} onChange={e => setPassword(e.target.value)}
                     onKeyDown={e => e.key === "Enter" && handleLogin()}
                     style={{ paddingRight: "44px" }}
@@ -416,9 +416,9 @@ export default function Login() {
                 </div>
               </div>
 
-              <button className="forgot-link" onClick={() => {
+                 <button className="forgot-link" onClick={() => {
                 if (role === "admin") { setAdminForgotUser(username); goTo("adminForgot"); }
-                else { setForgotRole(role === "candidate" ? "candidate" : role); goTo("choice"); }
+                  else { setForgotRole(role === "candidate" ? "candidate" : role); goTo("choice"); }
                 setMsg({ text: "", type: "" });
               }}>
                 Forgot password?
@@ -482,20 +482,20 @@ export default function Login() {
 
               <div className="field">
                 <label>Old Password</label>
-                <input type="password" placeholder="Purana password" value={oldPass} onChange={e => setOldPass(e.target.value)} />
+                <input type="password" placeholder="oldpassword" value={oldPass} onChange={e => setOldPass(e.target.value)} />
               </div>
               <div className="field">
                 <label>New Password</label>
-                <input type="password" placeholder="Naya password (min 4 chars)" value={newPass} onChange={e => setNewPass(e.target.value)} />
+                <input type="password" placeholder="newpassword" value={newPass} onChange={e => setNewPass(e.target.value)} />
               </div>
               <div className="field">
                 <label>Confirm New Password</label>
-                <input type="password" placeholder="Naya password dobara" value={confirmPass} onChange={e => setConfirmPass(e.target.value)}
+                <input type="password" placeholder="newpassword" value={confirmPass} onChange={e => setConfirmPass(e.target.value)}
                   onKeyDown={e => e.key === "Enter" && handleChangePassword()} />
               </div>
 
               <button className="btn-primary" onClick={handleChangePassword} disabled={loading}>
-                {loading ? "Saving..." : "Password Change Karo"}
+                {loading ? "Saving..." : "change password"}
               </button>
             </>
           )}
@@ -545,24 +545,24 @@ export default function Login() {
                 <div className="info-box">OTP aapki email par bhej di gayi hai.</div>
                 <div className="field">
                   <label>OTP (6 digits)</label>
-                  <input type="text" placeholder="Email par aaya OTP daalo" value={adminOtpInput}
+                  <input type="text" placeholder="email verification code" value={adminOtpInput}
                     onChange={e => setAdminOtpInput(e.target.value)}
                     style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box",marginBottom:"14px"}} />
                 </div>
                 <div className="field">
                   <label>New Password</label>
-                  <input type="password" placeholder="Naya password" value={adminNewPass}
+                  <input type="password" placeholder="new password" value={adminNewPass}
                     onChange={e => setAdminNewPass(e.target.value)}
                     style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box",marginBottom:"14px"}} />
                 </div>
                 <div className="field" style={{marginBottom:"20px"}}>
                   <label>Confirm Password</label>
-                  <input type="password" placeholder="Dobara naya password" value={adminConfirmPass}
+                  <input type="password" placeholder="confirm password" value={adminConfirmPass}
                     onChange={e => setAdminConfirmPass(e.target.value)}
                     style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box"}} />
                 </div>
                 <button className="btn-primary" onClick={handleAdminResetPass} disabled={loading}>
-                  {loading ? "Saving..." : "Password Reset Karo"}
+                  {loading ? "Saving..." : "reset password"}
                 </button>
                 <button className="btn-secondary" onClick={() => { setAdminOtpSent(false); setAdminOtpInput(""); }}>
                   OTP Dobara Bhejo
@@ -581,7 +581,7 @@ export default function Login() {
               <button className="btn-primary" onClick={() => {
                 setScreen("login"); setOldPass(""); setNewPass(""); setConfirmPass(""); setForgotId(""); setMsg({ text: "", type: "" });
               }}>
-                Login Page par Jao →
+               go to login
               </button>
             </div>
           )}

@@ -7,11 +7,12 @@ const EMAILJS_TEMPLATE_ID = "template_ivx5de5";
 const EMAILJS_PUBLIC_KEY = "W0z3JWrp38ZyyQWeN";
 const VOTE_LINK = "https://faculty-voting-system-mitali.vercel.app/";
 
-const emptyForm = { name: "", subject: "", qualification: "", photo: "", preview: "", email: "", candidateLoginId: "", password: "" };
+const emptyForm = { name: "", subject: "", qualification: "", photo: "", preview: "", 
+  email: "", candidateLoginId: "", password: "" };
 
 function VotingManagement() {
-  const [form, setForm] = useState(emptyForm);
-  const [candidates, setCandidates] = useState([]);
+   const [form, setForm] = useState(emptyForm);
+    const [candidates, setCandidates] = useState([]);
   const [editId, setEditId] = useState(null);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
@@ -136,13 +137,17 @@ function VotingManagement() {
       </p>
 
       {message.text && (
-        <div style={{ padding: "10px 14px", borderRadius: "6px", marginBottom: "14px", background: message.type === "success" ? "#f0fdf4" : "#fef2f2", color: message.type === "success" ? "#166534" : "#991b1b", border: message.type === "success" ? "1px solid #bbf7d0" : "1px solid #fecaca", fontSize: "0.9rem" }}>
+        <div style={{ padding: "10px 14px", borderRadius: "6px", marginBottom: "14px",
+         background: message.type === "success" ? "#f0fdf4" : "#fef2f2", 
+         color: message.type === "success" ? "#166534" : "#991b1b", 
+         border: message.type === "success" ? "1px solid #bbf7d0" : "1px solid #fecaca", fontSize: "0.9rem" }}>
           {message.text}
         </div>
       )}
 
       {/* Form */}
-      <div style={{ background: "#f9fafb", padding: "20px", borderRadius: "10px", marginBottom: "24px", border: "1px solid #e5e7eb" }}>
+      <div style={{ background: "#f9fafb", padding: "20px", borderRadius: "10px",
+         marginBottom: "24px", border: "1px solid #e5e7eb" }}>
         <h3 style={{ marginTop: 0, marginBottom: "16px", fontSize: "1rem" }}>
           {editId ? "Edit Candidate" : "Add Candidate"}
         </h3>
@@ -151,7 +156,9 @@ function VotingManagement() {
           {/* Photo */}
           <div style={{ textAlign: "center" }}>
             <div onClick={() => fileRef.current.click()}
-              style={{ width: "90px", height: "90px", borderRadius: "50%", border: "2px dashed #d1d5db", cursor: "pointer", overflow: "hidden", background: "#f3f4f6", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px" }}>
+              style={{ width: "90px", height: "90px", borderRadius: "50%", border: "2px dashed #d1d5db", 
+              cursor: "pointer", overflow: "hidden", background: "#f3f4f6", 
+              display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "6px" }}>
               {form.preview
                 ? <img src={form.preview} alt="preview" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 : <span style={{ color: "#9ca3af", fontSize: "0.78rem", textAlign: "center" }}>Click to<br />upload</span>}
@@ -160,7 +167,8 @@ function VotingManagement() {
             <div style={{ fontSize: "0.75rem", color: "#9ca3af" }}>Max 2MB</div>
             {form.preview && (
               <button onClick={() => setForm(f => ({ ...f, photo: "", preview: "" }))}
-                style={{ marginTop: "4px", padding: "2px 8px", background: "white", border: "1px solid #d1d5db", borderRadius: "4px", cursor: "pointer", fontSize: "0.75rem", color: "#6b7280" }}>
+                style={{ marginTop: "4px", padding: "2px 8px", background: "white", border: "1px solid #d1d5db", 
+                borderRadius: "4px", cursor: "pointer", fontSize: "0.75rem", color: "#6b7280" }}>
                 Remove
               </button>
             )}
@@ -170,36 +178,45 @@ function VotingManagement() {
           <div style={{ flex: 1, minWidth: "200px" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", marginBottom: "12px" }}>
               <div>
-                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", color: "#374151" }}>Name *</label>
-                <input type="text" placeholder="e.g. Dr. Raj Sharma" value={form.name}
+                <label style={{ display: "block", marginBottom: "4px", 
+                  fontSize: "0.85rem", color: "#374151" }}>Name *</label>
+                <input type="text" placeholder="Name" value={form.name}
                   onChange={(e) => setForm(f => ({ ...f, name: e.target.value }))}
-                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", boxSizing: "border-box", fontSize: "0.9rem" }} />
+                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", 
+                  width: "100%", boxSizing: "border-box", fontSize: "0.9rem" }} />
               </div>
               <div>
-                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", color: "#374151" }}>Subject *</label>
+                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem",
+                   color: "#374151" }}>Subject *</label>
                 <input type="text" placeholder="e.g. Data Structures" value={form.subject}
                   onChange={(e) => setForm(f => ({ ...f, subject: e.target.value }))}
-                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", boxSizing: "border-box", fontSize: "0.9rem" }} />
+                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", 
+                  boxSizing: "border-box", fontSize: "0.9rem" }} />
               </div>
               <div>
-                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", color: "#374151" }}>Qualification</label>
-                <input type="text" placeholder="e.g. PhD, M.Tech" value={form.qualification}
+                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", 
+                  color: "#374151" }}>Qualification</label>
+                <input type="text" placeholder="Qualification" value={form.qualification}
                   onChange={(e) => setForm(f => ({ ...f, qualification: e.target.value }))}
-                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", boxSizing: "border-box", fontSize: "0.9rem" }} />
+                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", 
+                  width: "100%", boxSizing: "border-box", fontSize: "0.9rem" }} />
               </div>
               <div>
-                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", color: "#374151" }}>Email</label>
+                <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", 
+                  color: "#374151" }}>Email</label>
                 <input type="email" placeholder="candidate@gmail.com" value={form.email}
                   onChange={(e) => setForm(f => ({ ...f, email: e.target.value }))}
-                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", boxSizing: "border-box", fontSize: "0.9rem" }} />
+                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", 
+                  boxSizing: "border-box", fontSize: "0.9rem" }} />
               </div>
               <div>
                 <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", color: "#374151" }}>
                   Login ID {editId ? "" : "(blank = auto)"}
                 </label>
-                <input type="text" placeholder={editId ? "CAN001" : "auto: CAN001"} value={form.candidateLoginId}
+                <input type="text" placeholder={editId ? "F1" : "auto: F1"} value={form.candidateLoginId}
                   onChange={(e) => setForm(f => ({ ...f, candidateLoginId: e.target.value }))}
-                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", boxSizing: "border-box", fontSize: "0.9rem" }} />
+                  style={{ padding: "8px 10px", borderRadius: "6px", border: "1px solid #d1d5db", width: "100%", 
+                  boxSizing: "border-box", fontSize: "0.9rem" }} />
               </div>
               <div>
                 <label style={{ display: "block", marginBottom: "4px", fontSize: "0.85rem", color: "#374151" }}>
@@ -282,4 +299,4 @@ function VotingManagement() {
   );
 }
 
-export default VotingManagement;
+    export default VotingManagement;

@@ -173,7 +173,8 @@ function Settings() {
     return [];
   };
 
-  const getPhoto = (c) => c.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&size=60&background=374151&color=fff&rounded=true`;
+  const getPhoto = (c) => c.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)
+  }&size=60&background=374151&color=fff&rounded=true`;
 
   const tabs = [
     ["results", "Results"],
@@ -196,7 +197,9 @@ function Settings() {
       <div style={{ display: "flex", borderBottom: "1px solid #e5e7eb", marginBottom: "24px" }}>
         {tabs.map(([val, label]) => (
           <button key={val} onClick={() => setTab(val)}
-            style={{ padding: "9px 20px", border: "none", background: "transparent", cursor: "pointer", fontWeight: tab === val ? "600" : "400", color: tab === val ? "#111827" : "#6b7280", borderBottom: tab === val ? "2px solid #1e293b" : "2px solid transparent", fontSize: "0.9rem" }}>
+            style={{ padding: "9px 20px", border: "none", background: "transparent", cursor: "pointer", 
+            fontWeight: tab === val ? "600" : "400", color: tab === val ? "#111827" : "#6b7280", 
+            borderBottom: tab === val ? "2px solid #1e293b" : "2px solid transparent", fontSize: "0.9rem" }}>
             {label}
           </button>
         ))}
@@ -214,7 +217,8 @@ function Settings() {
                 { label: "Total Votes", value: totalVotes, key: null, color: "#7c3aed" },
               ].map(s => (
                 <div key={s.label} onClick={() => s.key && setModal(s.key)}
-                  style={{ background: "white", border: "1px solid #e5e7eb", padding: "14px 18px", borderRadius: "8px", textAlign: "center", minWidth: "110px", cursor: s.key ? "pointer" : "default" }}>
+                  style={{ background: "white", border: "1px solid #e5e7eb", padding: "14px 18px", 
+                  borderRadius: "8px", textAlign: "center", minWidth: "110px", cursor: s.key ? "pointer" : "default" }}>
                   <div style={{ fontSize: "1.6rem", fontWeight: "800", color: s.color }}>{s.value}</div>
                   <div style={{ fontSize: "0.78rem", color: "#6b7280" }}>{s.label}</div>
                   {s.key && <div style={{ fontSize: "0.7rem", color: "#9ca3af" }}>click to view</div>}
@@ -224,15 +228,19 @@ function Settings() {
           )}
 
           {/* Reminder */}
-          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px", marginBottom: "20px" }}>
-            <div style={{ fontWeight: "600", color: "#111827", marginBottom: "8px", fontSize: "0.9rem" }}>Send Reminder to Pending Students</div>
+          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px",
+             marginBottom: "20px" }}>
+            <div style={{ fontWeight: "600", color: "#111827", 
+              marginBottom: "8px", fontSize: "0.9rem" }}>Send Reminder to Pending Students</div>
             <div style={{ color: "#6b7280", fontSize: "0.82rem", marginBottom: "10px" }}>
               ({allStudents.filter(s => !s.hasVoted && s.email).length} students with email)
             </div>
             <textarea value={reminderMsg} onChange={e => setReminderMsg(e.target.value)} rows={2}
-              style={{ width: "100%", padding: "8px 10px", borderRadius: "7px", border: "1px solid #d1d5db", fontSize: "0.85rem", resize: "vertical", boxSizing: "border-box", marginBottom: "10px", fontFamily: "inherit" }} />
+              style={{ width: "100%", padding: "8px 10px", borderRadius: "7px", border: "1px solid #d1d5db",
+               fontSize: "0.85rem", resize: "vertical", boxSizing: "border-box", marginBottom: "10px", fontFamily: "inherit" }} />
             <button onClick={handleSendReminders} disabled={sendingEmails}
-              style={{ padding: "8px 20px", background: "#1e293b", color: "white", border: "none", borderRadius: "6px", cursor: "pointer", fontWeight: "600", fontSize: "0.88rem" }}>
+              style={{ padding: "8px 20px", background: "#1e293b", color: "white", border: "none", borderRadius: "6px", 
+              cursor: "pointer", fontWeight: "600", fontSize: "0.88rem" }}>
               {sendingEmails ? "Bhej raha hai..." : "Send Reminder Email"}
             </button>
           </div>
@@ -240,9 +248,13 @@ function Settings() {
           {candidates.map((c, index) => {
             const percentage = totalVotes > 0 ? ((c.votes / totalVotes) * 100).toFixed(1) : 0;
             return (
-              <div key={c._id} style={{ background: "white", border: index === 0 ? "2px solid #2563eb" : "1px solid #e5e7eb", padding: "14px 16px", marginBottom: "10px", borderRadius: "10px", display: "flex", alignItems: "center", gap: "14px" }}>
+              <div key={c._id} style={{ background: "white", border: index === 0 ? "2px solid #2563eb" : "1px solid #e5e7eb",
+              
+               padding: "14px 16px", marginBottom: "10px", borderRadius: "10px",
+                display: "flex", alignItems: "center", gap: "14px" }}>
                 <div style={{ fontWeight: "700", color: "#9ca3af", minWidth: "20px" }}>{index + 1}</div>
-                <img src={getPhoto(c)} alt={c.name} style={{ width: "50px", height: "50px", borderRadius: "50%", objectFit: "cover", border: "1px solid #e5e7eb" }} />
+                <img src={getPhoto(c)} alt={c.name} style={{ width: "50px", height: "50px", borderRadius: "50%", 
+                  objectFit: "cover", border: "1px solid #e5e7eb" }} />
                 <div style={{ flex: 1 }}>
                   <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
                     <div>
@@ -255,7 +267,8 @@ function Settings() {
                     </div>
                   </div>
                   <div style={{ background: "#e5e7eb", borderRadius: "99px", height: "6px" }}>
-                    <div style={{ background: index === 0 ? "#2563eb" : "#9ca3af", height: "100%", borderRadius: "99px", width: `${percentage}%` }} />
+                    <div style={{ background: index === 0 ? "#2563eb" : "#9ca3af", height: "100%", 
+                      borderRadius: "99px", width: `${percentage}%` }} />
                   </div>
                 </div>
               </div>
@@ -264,18 +277,24 @@ function Settings() {
 
           <div style={{ display: "flex", gap: "8px", marginTop: "12px" }}>
             <button onClick={handleShowWinner}
-              style={{ padding: "9px 20px", background: "#1e293b", color: "white", border: "none", borderRadius: "6px", cursor: "pointer", fontWeight: "600", fontSize: "0.9rem" }}>
+              style={{ padding: "9px 20px", background: "#1e293b", color: "white", border: "none",
+               borderRadius: "6px", cursor: "pointer", fontWeight: "600", fontSize: "0.9rem" }}>
               Show Winner
             </button>
             <button onClick={() => { fetchData(); setWinner(null); }}
-              style={{ padding: "9px 16px", background: "white", border: "1px solid #d1d5db", borderRadius: "6px", cursor: "pointer", fontSize: "0.9rem" }}>
+              style={{ padding: "9px 16px", background: "white", border: "1px solid #d1d5db",
+               borderRadius: "6px", cursor: "pointer", fontSize: "0.9rem" }}>
               Refresh
             </button>
           </div>
 
           {winner && winner.map(w => (
-            <div key={w._id} style={{ marginTop: "16px", background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "20px", display: "flex", alignItems: "center", gap: "16px" }}>
-              <img src={getPhoto(w)} alt={w.name} style={{ width: "70px", height: "70px", borderRadius: "50%", objectFit: "cover", border: "2px solid #2563eb" }} />
+            <div key={w._id} style={{ marginTop: "16px", background: "#f9fafb", 
+            border: "1px solid #e5e7eb", borderRadius: "10px", padding: "20px", 
+            display: "flex", alignItems: "center", gap: "16px" }}>
+              <img src={getPhoto(w)} alt={w.name} style={{ width: "70px", height: "70px",
+                
+                borderRadius: "50%", objectFit: "cover", border: "2px solid #2563eb" }} />
               <div>
                 <div style={{ fontSize: "0.82rem", color: "#6b7280", marginBottom: "2px" }}>Winner</div>
                 <div style={{ fontSize: "1.2rem", fontWeight: "700", color: "#111827" }}>{w.name}</div>
@@ -298,9 +317,11 @@ function Settings() {
             <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: "12px" }}>
               Sab votes delete ho jayenge aur students dobara vote kar sakenge.
             </p>
-            {stats && <p style={{ color: "#991b1b", fontSize: "0.85rem", marginBottom: "16px" }}>Currently {stats.totalVoted} students ne vote diya hai.</p>}
+            {stats && <p style={{ color: "#991b1b", fontSize: "0.85rem",
+               marginBottom: "16px" }}>Currently {stats.totalVoted} students ne vote diya hai.</p>}
             <button onClick={handleReset} disabled={loading}
-              style={{ padding: "9px 20px", background: "#dc2626", color: "white", border: "none", borderRadius: "6px", cursor: "pointer", fontWeight: "600", fontSize: "0.9rem" }}>
+              style={{ padding: "9px 20px", background: "#dc2626", color: "white",
+               border: "none", borderRadius: "6px", cursor: "pointer", fontWeight: "600", fontSize: "0.9rem" }}>
               {loading ? "Resetting..." : "Reset All Votes"}
             </button>
           </div>
@@ -316,7 +337,8 @@ function Settings() {
             <p style={{ color: "#9ca3af" }}>Koi pending request nahi hai.</p>
           ) : (
             requests.map(r => (
-              <div key={r._id} style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "8px", padding: "14px 16px", marginBottom: "10px" }}>
+              <div key={r._id} style={{ background: "white", border: "1px solid #e5e7eb", 
+              borderRadius: "8px", padding: "14px 16px", marginBottom: "10px" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                   <div>
                     <div style={{ fontWeight: "600", color: "#111827", fontSize: "0.9rem" }}>{r.name || r.userId}</div>
@@ -326,7 +348,8 @@ function Settings() {
                       : <input type="email" placeholder="Email daalo"
                           value={emailInputs[r._id] || ""}
                           onChange={e => setEmailInputs(p => ({ ...p, [r._id]: e.target.value }))}
-                          style={{ padding: "4px 8px", borderRadius: "5px", border: "1px solid #fbbf24", fontSize: "0.78rem", width: "180px", marginTop: "2px" }} />
+                          style={{ padding: "4px 8px", borderRadius: "5px", border: "1px solid #fbbf24", 
+                            fontSize: "0.78rem", width: "180px", marginTop: "2px" }} />
                     }
                     <div style={{ color: "#9ca3af", fontSize: "0.78rem", marginTop: "2px" }}>
                       {new Date(r.createdAt).toLocaleDateString("en-IN")}
@@ -336,9 +359,11 @@ function Settings() {
                     <input type="text" placeholder="Naya password"
                       value={newPasswords[r._id] || ""}
                       onChange={e => setNewPasswords(p => ({ ...p, [r._id]: e.target.value }))}
-                      style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #d1d5db", fontSize: "0.82rem", width: "150px" }} />
+                      style={{ padding: "6px 10px", borderRadius: "5px", border: "1px solid #d1d5db",
+                       fontSize: "0.82rem", width: "150px" }} />
                     <button onClick={() => handleResolve(r)}
-                      style={{ padding: "6px 12px", background: "#1e293b", color: "white", border: "none", borderRadius: "5px", cursor: "pointer", fontSize: "0.82rem", textAlign: "center" }}>
+                      style={{ padding: "6px 12px", background: "#1e293b", color: "white", border: "none",
+                       borderRadius: "5px", cursor: "pointer", fontSize: "0.82rem", textAlign: "center" }}>
                       Set & Email
                     </button>
                   </div>
@@ -353,35 +378,49 @@ function Settings() {
       {tab === "schedule" && (
         <div style={{ maxWidth: "480px" }}>
           <h3 style={{ margin: "0 0 4px", fontSize: "1rem" }}>Election Schedule</h3>
-          <p style={{ color: "#6b7280", fontSize: "0.85rem", marginBottom: "20px" }}>Is time ke beech hi students vote de sakenge.</p>
+          <p style={{ color: "#6b7280", fontSize: "0.85rem", marginBottom: "20px" }}
+          >Is time ke beech hi students vote de sakenge.</p>
 
-          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px", marginBottom: "12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px",
+             padding: "16px 18px", marginBottom: "12px", display: "flex", justifyContent: "space-between", 
+             alignItems: "center" }}>
             <div>
               <div style={{ fontWeight: "600", color: "#111827", fontSize: "0.9rem" }}>Voting Active</div>
               <div style={{ color: "#6b7280", fontSize: "0.8rem" }}>Off karne se koi vote nahi de sakta</div>
             </div>
             <div onClick={() => setConfig(c => ({ ...c, isActive: !c.isActive }))}
-              style={{ width: "44px", height: "24px", borderRadius: "99px", background: config.isActive ? "#16a34a" : "#d1d5db", cursor: "pointer", position: "relative", transition: "background 0.2s", flexShrink: 0 }}>
-              <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: "white", position: "absolute", top: "3px", left: config.isActive ? "23px" : "3px", transition: "left 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
+              style={{ width: "44px", height: "24px", borderRadius: "99px", 
+                background: config.isActive ? "#16a34a" : "#d1d5db", 
+              cursor: "pointer", position: "relative", transition: "background 0.2s", flexShrink: 0 }}>
+              <div style={{ width: "18px", height: "18px", borderRadius: "50%", background: "white",
+                 position: "absolute", top: "3px", left: config.isActive ? "23px" : "3px", 
+                 transition: "left 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
             </div>
           </div>
 
-          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px", marginBottom: "10px" }}>
-            <label style={{ display: "block", fontSize: "0.82rem", color: "#6b7280", marginBottom: "8px", fontWeight: "500" }}>Voting Start Time</label>
+          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px",
+             marginBottom: "10px" }}>
+            <label style={{ display: "block", fontSize: "0.82rem", color: "#6b7280", 
+              marginBottom: "8px", fontWeight: "500" }}>Voting Start Time</label>
             <input type="datetime-local" value={config.startTime}
               onChange={e => setConfig(c => ({ ...c, startTime: e.target.value }))}
-              style={{ width: "100%", padding: "8px 10px", borderRadius: "7px", border: "1px solid #d1d5db", fontSize: "0.9rem", outline: "none", boxSizing: "border-box" }} />
+              style={{ width: "100%", padding: "8px 10px", borderRadius: "7px", 
+              border: "1px solid #d1d5db", fontSize: "0.9rem", outline: "none", boxSizing: "border-box" }} />
           </div>
 
-          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px", marginBottom: "16px" }}>
-            <label style={{ display: "block", fontSize: "0.82rem", color: "#6b7280", marginBottom: "8px", fontWeight: "500" }}>Voting End Time</label>
+          <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px",
+             marginBottom: "16px" }}>
+            <label style={{ display: "block", fontSize: "0.82rem", 
+              color: "#6b7280", marginBottom: "8px", fontWeight: "500" }}>Voting End Time</label>
             <input type="datetime-local" value={config.endTime}
               onChange={e => setConfig(c => ({ ...c, endTime: e.target.value }))}
-              style={{ width: "100%", padding: "8px 10px", borderRadius: "7px", border: "1px solid #d1d5db", fontSize: "0.9rem", outline: "none", boxSizing: "border-box" }} />
+              style={{ width: "100%", padding: "8px 10px", borderRadius: "7px", border: "1px solid #d1d5db", 
+              fontSize: "0.9rem", outline: "none", boxSizing: "border-box" }} />
           </div>
 
           {(config.startTime || config.endTime) && (
-            <div style={{ background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "8px", padding: "12px 14px", marginBottom: "16px", fontSize: "0.85rem", color: "#374151", lineHeight: 1.7 }}>
+            <div style={{ background: "#f9fafb", border: "1px solid #e5e7eb", borderRadius: "8px", padding: "12px 14px",
+             marginBottom: "16px", fontSize: "0.85rem", color: "#374151", lineHeight: 1.7 }}>
               {config.startTime && <div>Shuru: <strong>{new Date(config.startTime).toLocaleString("en-IN")}</strong></div>}
               {config.endTime && <div>Band: <strong>{new Date(config.endTime).toLocaleString("en-IN")}</strong></div>}
               <div style={{ color: config.isActive ? "#166534" : "#991b1b", fontWeight: "500" }}>
@@ -391,7 +430,8 @@ function Settings() {
           )}
 
           <button onClick={handleSaveConfig} disabled={loading}
-            style={{ padding: "10px 24px", background: "#1e293b", color: "white", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "600", fontSize: "0.9rem" }}>
+            style={{ padding: "10px 24px", background: "#1e293b", color: "white", border: "none", borderRadius: "8px",
+             cursor: "pointer", fontWeight: "600", fontSize: "0.9rem" }}>
             {loading ? "Saving..." : "Save Schedule"}
           </button>
         </div>
@@ -399,9 +439,12 @@ function Settings() {
 
       {/* Student List Modal */}
       {modal && (
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
-          <div style={{ background: "white", borderRadius: "14px", width: "100%", maxWidth: "540px", maxHeight: "80vh", overflow: "hidden", display: "flex", flexDirection: "column" }}>
-            <div style={{ padding: "18px 20px", borderBottom: "1px solid #e5e7eb", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", 
+        zIndex: 1000, display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
+          <div style={{ background: "white", borderRadius: "14px", width: "100%", maxWidth: "540px", maxHeight: "80vh",
+             overflow: "hidden", display: "flex", flexDirection: "column" }}>
+            <div style={{ padding: "18px 20px", borderBottom: "1px solid #e5e7eb", display: "flex", 
+              justifyContent: "space-between", alignItems: "center" }}>
               <div>
                 <div style={{ fontWeight: "700", fontSize: "1rem", color: "#111827" }}>
                   {modal === "all" ? "All Students" : modal === "voted" ? "Voted Students" : "Not Voted Students"}
@@ -409,14 +452,16 @@ function Settings() {
                 <div style={{ color: "#6b7280", fontSize: "0.82rem" }}>{getModalStudents().length} students</div>
               </div>
               <button onClick={() => setModal(null)}
-                style={{ background: "none", border: "none", fontSize: "1.3rem", cursor: "pointer", color: "#6b7280" }}>✕</button>
+                style={{ background: "none", border: "none", fontSize: "1.3rem", cursor: "pointer",
+                 color: "#6b7280" }}>✕</button>
             </div>
             <div style={{ overflowY: "auto", flex: 1, padding: "12px 16px" }}>
               <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.88rem" }}>
                 <thead>
                   <tr style={{ background: "#f9fafb" }}>
                     {["#", "Name", "Enrollment", "Vote"].map(h => (
-                      <th key={h} style={{ padding: "8px 10px", textAlign: "left", color: "#6b7280", fontWeight: "600", fontSize: "0.78rem", borderBottom: "1px solid #e5e7eb" }}>{h}</th>
+                      <th key={h} style={{ padding: "8px 10px", textAlign: "left", color: "#6b7280", fontWeight: "600", 
+                        fontSize: "0.78rem", borderBottom: "1px solid #e5e7eb" }}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -427,7 +472,9 @@ function Settings() {
                       <td style={{ padding: "8px 10px", fontWeight: "500" }}>{s.name || "—"}</td>
                       <td style={{ padding: "8px 10px", color: "#374151" }}>{s.enrollmentNo}</td>
                       <td style={{ padding: "8px 10px" }}>
-                        <span style={{ background: s.hasVoted ? "#eff6ff" : "#fefce8", color: s.hasVoted ? "#1e40af" : "#854d0e", padding: "2px 8px", borderRadius: "99px", fontSize: "0.78rem" }}>
+                        <span style={{ background: s.hasVoted ? "#eff6ff" : "#fefce8", 
+                          color: s.hasVoted ? "#1e40af" : "#854d0e", padding: "2px 8px",
+                           borderRadius: "99px", fontSize: "0.78rem" }}>
                           {s.hasVoted ? "Voted" : "Pending"}
                         </span>
                       </td>
