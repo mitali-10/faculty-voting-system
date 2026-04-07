@@ -379,7 +379,7 @@ function Settings() {
         <div style={{ maxWidth: "480px" }}>
           <h3 style={{ margin: "0 0 4px", fontSize: "1rem" }}>Election Schedule</h3>
           <p style={{ color: "#6b7280", fontSize: "0.85rem", marginBottom: "20px" }}
-          >Is time ke beech hi students vote de sakenge.</p>
+          >only this time student can vote</p>
 
           <div style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px",
              padding: "16px 18px", marginBottom: "12px", display: "flex", justifyContent: "space-between", 

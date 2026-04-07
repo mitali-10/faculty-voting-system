@@ -120,11 +120,14 @@ function AdminHome() {
             { label: "Not Voted", value: stats.totalNotVoted, color: "#d97706", bg: "#fffbeb" },
             { label: "Candidates", value: candidates.length, color: "#7c3aed", bg: "#f5f3ff" },
           ].map(s => (
-            <div key={s.label} style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px" }}>
+            <div key={s.label} style={{ background: "white", border: "1px solid #e5e7eb",
+             borderRadius: "10px", padding: "16px 18px" }}>
               <div style={{ fontSize: "2rem", fontWeight: "800", color: s.color }}>{s.value}</div>
               <div style={{ fontSize: "0.78rem", color: "#6b7280", marginTop: "2px" }}>{s.label}</div>
               <div style={{ marginTop: "8px", background: "#f3f4f6", borderRadius: "99px", height: "4px" }}>
-                <div style={{ background: s.color, height: "100%", borderRadius: "99px", width: stats.totalStudents > 0 ? `${Math.min((s.value / stats.totalStudents) * 100, 100)}%` : "0%", transition: "width 1s" }} />
+                <div style={{ background: s.color, height: "100%", borderRadius: "99px",
+                   width: stats.totalStudents > 0 ? `${Math.min((s.value / stats.totalStudents) * 100, 100)}%` : "0%", 
+                   transition: "width 1s" }} />
               </div>
             </div>
           ))}
@@ -164,7 +167,8 @@ function AdminHome() {
               {leaders.map(leader => (
                 <div key={leader._id} style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                   <img src={getPhoto(leader)} alt={leader.name}
-                    style={{ width: "52px", height: "52px", borderRadius: "50%", objectFit: "cover", border: "3px solid #2563eb" }} />
+                    style={{ width: "52px", height: "52px", borderRadius: "50%", objectFit: "cover",
+                     border: "3px solid #2563eb" }} />
                   <div>
                     <div style={{ fontWeight: "700", color: "#111827", fontSize: "0.95rem" }}>{leader.name}</div>
                     {leader.qualification && <div style={{ color: "#6b7280", fontSize: "0.78rem" }}>{leader.qualification}</div>}
