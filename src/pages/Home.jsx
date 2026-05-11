@@ -141,7 +141,7 @@ function Home() {
               </div>
               <button onClick={handleVote}
                 style={{ padding: "8px 20px", background: "#16a34a", color: "white", border: "none", borderRadius: "7px", cursor: "pointer", fontWeight: "600", fontSize: "0.88rem" }}>
-                Vote Karo
+              for  Vote 
               </button>
             </div>
           )
