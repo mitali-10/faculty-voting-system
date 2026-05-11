@@ -125,18 +125,18 @@ function Home() {
         ) : role === "student" && electionStatus && (
           !electionStatus.allowed ? (
             <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: "10px", padding: "14px 18px", marginBottom: "14px" }}>
-              <div style={{ fontWeight: "600", color: "#991b1b", marginBottom: "4px" }}>Voting Available Nahi Hai</div>
+              <div style={{ fontWeight: "600", color: "#991b1b", marginBottom: "4px" }}>Voting are not Available </div>
               <div style={{ color: "#b91c1c", fontSize: "0.85rem" }}>{electionStatus.reason}</div>
               {electionStatus.startTime && (
-                <div style={{ color: "#991b1b", fontSize: "0.82rem", marginTop: "4px" }}>Shuru hogi: <strong>{fmt(electionStatus.startTime)}</strong></div>
+                <div style={{ color: "#991b1b", fontSize: "0.82rem", marginTop: "4px" }}>start on time: <strong>{fmt(electionStatus.startTime)}</strong></div>
               )}
             </div>
           ) : (
             <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "10px", padding: "14px 18px", marginBottom: "14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
-                <div style={{ fontWeight: "600", color: "#166534" }}>Voting Chal Rahi Hai!</div>
+                <div style={{ fontWeight: "600", color: "#166534" }}>Voting is currently in progress!</div>
                 {electionStatus.endTime && (
-                  <div style={{ color: "#15803d", fontSize: "0.82rem", marginTop: "2px" }}>Band hogi: <strong>{fmt(electionStatus.endTime)}</strong></div>
+                  <div style={{ color: "#15803d", fontSize: "0.82rem", marginTop: "2px" }}>Voting Closed on: <strong>{fmt(electionStatus.endTime)}</strong></div>
                 )}
               </div>
               <button onClick={handleVote}
