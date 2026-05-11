@@ -150,10 +150,25 @@ function Home() {
         {/* Info Cards */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
           {[
-            { title: "CSE Department", desc: "Computer Science & Engineering department skilled developers, researchers aur innovators produce karta hai." },
-            { title: "About Faculty", desc: "Hamare professors vast knowledge ke saath quality education aur research opportunities provide karte hain." },
-            { title: "Subjects & Labs", desc: "Algorithms, OS, DBMS, AI aur aur bhi subjects modern labs ke saath." },
-            { title: "Voting Process", desc: "Apni pasand ke faculty ko vote do aur department representative choose karo." }
+           { 
+  title: "CSE Department", 
+  desc: "The Computer Science & Engineering department focuses on developing skilled professionals, innovative thinkers, and future technology leaders." 
+},
+
+{ 
+  title: "About Faculty", 
+  desc: "Our experienced faculty members provide quality education, mentorship, and research opportunities to support student growth and excellence." 
+},
+
+{ 
+  title: "Subjects & Labs", 
+  desc: "The department offers advanced subjects like Algorithms, Operating Systems, DBMS, Artificial Intelligence, and modern laboratory facilities." 
+},
+
+{ 
+  title: "Voting Process", 
+  desc: "Participate in the faculty voting process to select your preferred representative and contribute to departmental decision-making." 
+}
           ].map(c => (
             <div key={c.title} style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px 18px" }}>
               <div style={{ fontWeight: "600", color: "#111827", marginBottom: "6px", fontSize: "0.9rem" }}>{c.title}</div>
