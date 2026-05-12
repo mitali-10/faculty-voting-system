@@ -180,7 +180,7 @@ function CandidateDashboard() {
                 {/* Tie notice on home tab */}
                 {myRank === 1 && candidates.filter(c => c.votes === (candidateData.votes || 0)).length > 1 && (
                   <div style={{ background: "#fef3c7", border: "1px solid #fbbf24", borderRadius: "8px", padding: "10px 14px", marginBottom: "12px", color: "#92400e", fontSize: "0.85rem" }}>
-                    ⚠️ Tie hai! Aapke votes kisi aur candidate ke barabar hain — dono ki rank #1 hai.
+                    
                   </div>
                 )}
 
@@ -326,7 +326,7 @@ function CandidateDashboard() {
                 </div>
                 {(w._id === candidateData?._id || w.name === candidateData?.name) && (
                   <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "8px", padding: "10px", marginTop: "14px", color: "#166534", fontSize: "0.88rem" }}>
-                    🎉 Congratulations! Aap winner hain!
+                    🎉 Congratulations! you are winner
                   </div>
                 )}
               </div>
