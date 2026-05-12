@@ -177,12 +177,7 @@ function CandidateDashboard() {
                   ))}
                 </div>
 
-                {/* Tie notice on home tab */}
-                {myRank === 1 && candidates.filter(c => c.votes === (candidateData.votes || 0)).length > 1 && (
-                  <div style={{ background: "#fef3c7", border: "1px solid #fbbf24", borderRadius: "8px", padding: "10px 14px", marginBottom: "12px", color: "#92400e", fontSize: "0.85rem" }}>
-                    
-                  </div>
-                )}
+               
 
                 {/* Election Status */}
                 {electionStatus && (
