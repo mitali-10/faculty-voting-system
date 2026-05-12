@@ -22,7 +22,6 @@ function Result() {
         navigate("/home"); return;
       }
     }
-    // candidate role can always see results
     fetch(`${API}/api/results`)
       .then(res => res.json())
       .then(data => {
@@ -42,6 +41,15 @@ function Result() {
 
   const getPhoto = (c) =>
     c.photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(c.name)}&size=120&background=374151&color=fff&rounded=true`;
+
+  // ── Tie-aware rank helper ────────────────────────────────────────────────
+  // Returns the rank for candidate at position `index` in the sorted array.
+  // If two candidates have the same votes, they get the same rank number.
+  // Example: votes = [5, 5, 3]  →  ranks = [1, 1, 3]
+  const getRank = (index) => {
+    return candidates.filter((x, i) => i < index && x.votes > candidates[index].votes).length + 1;
+  };
+  // ─────────────────────────────────────────────────────────────────────────
 
   return (
     <div style={{ background: "#f9fafb", minHeight: "100vh", padding: "30px 20px" }}>
@@ -71,17 +79,24 @@ function Result() {
         ) : (
           candidates.map((c, index) => {
             const percentage = totalVotes > 0 ? ((c.votes / totalVotes) * 100).toFixed(1) : 0;
+            const rank = getRank(index);
+            const isTopRank = rank === 1;
+
             return (
               <div key={c._id} style={{
                 background: "white",
-                border: index === 0 ? "2px solid #2563eb" : "1px solid #e5e7eb",
+                border: isTopRank ? "2px solid #2563eb" : "1px solid #e5e7eb",
                 borderRadius: "12px", padding: "18px 20px",
                 marginBottom: "12px",
                 display: "flex", alignItems: "center", gap: "16px"
               }}>
                 {/* Rank Number */}
-                <div style={{ fontSize: "1.1rem", fontWeight: "700", color: "#6b7280", minWidth: "28px", textAlign: "center" }}>
-                  {index + 1}
+                <div style={{
+                  fontSize: "1.1rem", fontWeight: "700",
+                  color: isTopRank ? "#2563eb" : "#6b7280",
+                  minWidth: "32px", textAlign: "center"
+                }}>
+                  #{rank}
                 </div>
 
                 {/* Photo */}
@@ -107,7 +122,7 @@ function Result() {
                   {/* Progress Bar */}
                   <div style={{ background: "#e5e7eb", borderRadius: "99px", height: "6px" }}>
                     <div style={{
-                      background: index === 0 ? "#2563eb" : "#9ca3af",
+                      background: isTopRank ? "#2563eb" : "#9ca3af",
                       height: "100%", borderRadius: "99px",
                       width: `${percentage}%`, transition: "width 1s ease"
                     }} />
@@ -116,6 +131,18 @@ function Result() {
               </div>
             );
           })
+        )}
+
+        {/* Tie notice */}
+        {candidates.length > 1 &&
+          candidates[0].votes === candidates[1].votes && (
+          <div style={{
+            background: "#fef3c7", border: "1px solid #fbbf24",
+            borderRadius: "8px", padding: "10px 16px",
+            marginBottom: "12px", color: "#92400e", fontSize: "0.88rem"
+          }}>
+            ⚠️ Tie detected — candidates with equal votes share the same rank.
+          </div>
         )}
 
         {/* Show Winner Button */}
@@ -133,7 +160,9 @@ function Result() {
 
             {/* Header */}
             <div style={{ background: "#1e293b", padding: "20px 24px", textAlign: "center", color: "white" }}>
-              <div style={{ fontSize: "1.1rem", fontWeight: "700" }}>Winner</div>
+              <div style={{ fontSize: "1.1rem", fontWeight: "700" }}>
+                {winner.length > 1 ? "🏆 It's a Tie!" : "🏆 Winner"}
+              </div>
               <div style={{ fontSize: "0.85rem", color: "#94a3b8", marginTop: "2px" }}>CSE Department Faculty Election</div>
             </div>
 
@@ -167,15 +196,19 @@ function Result() {
                 </div>
 
                 <div style={{ color: "#6b7280", fontSize: "0.85rem", marginBottom: "20px" }}>
-                  Congratulations! You have been elected as the Faculty Representative of CSE Department.
+                  {winner.length > 1
+                    ? "Tie! Both candidates have equal votes."
+                    : "Congratulations! You have been elected as the Faculty Representative of CSE Department."}
                 </div>
-
-                <button onClick={() => setShowModal(false)}
-                  style={{ width: "100%", padding: "11px", background: "#1e293b", color: "white", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}>
-                  Close
-                </button>
               </div>
             ))}
+
+            <div style={{ padding: "0 24px 24px" }}>
+              <button onClick={() => setShowModal(false)}
+                style={{ width: "100%", padding: "11px", background: "#1e293b", color: "white", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "600" }}>
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}

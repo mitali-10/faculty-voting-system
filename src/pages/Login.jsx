@@ -459,12 +459,12 @@ export default function Login() {
               <div className="divider" />
 
               <div className="choice-card" onClick={() => goTo("change")}>
-                <div className="choice-title">Purana password yaad hai</div>
-                <div className="choice-desc">Old password use karke naya set karein</div>
+                <div className="choice-title">Remember Password</div>
+                <div className="choice-desc">use your old password and generate a new one</div>
               </div>
               <div className="choice-card" onClick={() => goTo("request")}>
-                <div className="choice-title">Purana password bhool gaya</div>
-                <div className="choice-desc">Admin ko request bhejein — vo reset karega</div>
+                <div className="choice-title">Forgot Password</div>
+                <div className="choice-desc">send the admin a request to reset your password</div>
               </div>
             </>
           )}
@@ -472,9 +472,9 @@ export default function Login() {
           {/* ===== CHANGE PASSWORD ===== */}
           {screen === "change" && (
             <>
-              <button className="btn-ghost" onClick={() => goTo("choice")}>← Wapas</button>
+              <button className="btn-ghost" onClick={() => goTo("choice")}>← GO</button>
               <div className="screen-title">Password Change</div>
-              <div className="screen-sub">Purana password verify karke naya set karein</div>
+              <div className="screen-sub">old password to set new one</div>
 
               <div className="info-box">
                 <span style={{ color: "#6366f1" }}>{forgotRole === "student" ? "Enrollment" : "Faculty ID"}:</span> {forgotId || "—"}
@@ -503,9 +503,9 @@ export default function Login() {
           {/* ===== ADMIN REQUEST ===== */}
           {screen === "request" && (
             <>
-              <button className="btn-ghost" onClick={() => goTo("choice")}>← Wapas</button>
+              <button className="btn-ghost" onClick={() => goTo("choice")}>← GO</button>
               <div className="screen-title">Admin Request</div>
-              <div className="screen-sub">Admin aapka password reset karega aur email pe bhejega</div>
+              <div className="screen-sub">Admin are reset the password and send on the mail</div>
 
               <div className="info-box">
                 <div><span style={{ color: "#6366f1" }}>Role:</span> <span style={{ textTransform: "capitalize" }}>{forgotRole}</span></div>
@@ -513,11 +513,14 @@ export default function Login() {
               </div>
 
               <div style={{ color: "#64748b", fontSize: "0.82rem", marginBottom: "20px", lineHeight: 1.6 }}>
-                Yeh request admin ke Settings panel mein dikhegi. Admin aapka password reset karke email pe bhejega.
+                 Admin send your new password on your regsitered email.if you don't recive email then contact admin email  mbhilwadiya@gmail.com
+
+
+              
               </div>
 
               <button className="btn-primary" onClick={handleForgotRequest} disabled={loading}>
-                {loading ? "Bhej raha hai..." : "Request Bhejo →"}
+                {loading ? "sending..." : "Request Bhejo →"}
               </button>
             </>
           )}
@@ -527,7 +530,7 @@ export default function Login() {
           <>
             <button className="btn-ghost" onClick={() => { goTo("login"); setAdminOtpSent(false); }}>← Wapas Login</button>
             <div className="screen-title">Admin Password Reset</div>
-            <div className="screen-sub">OTP aapki registered email par bheja jaayega</div>
+            <div className="screen-sub">OTP are send your registrnd email</div>
 
             {!adminOtpSent ? (
               <>
@@ -547,19 +550,22 @@ export default function Login() {
                   <label>OTP (6 digits)</label>
                   <input type="text" placeholder="email verification code" value={adminOtpInput}
                     onChange={e => setAdminOtpInput(e.target.value)}
-                    style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box",marginBottom:"14px"}} />
+                    style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"10px",
+                    color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box",marginBottom:"14px"}} />
                 </div>
                 <div className="field">
                   <label>New Password</label>
                   <input type="password" placeholder="new password" value={adminNewPass}
                     onChange={e => setAdminNewPass(e.target.value)}
-                    style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box",marginBottom:"14px"}} />
+                    style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",
+                    borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box",marginBottom:"14px"}} />
                 </div>
                 <div className="field" style={{marginBottom:"20px"}}>
                   <label>Confirm Password</label>
                   <input type="password" placeholder="confirm password" value={adminConfirmPass}
                     onChange={e => setAdminConfirmPass(e.target.value)}
-                    style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box"}} />
+                    style={{width:"100%",padding:"11px 14px",background:"rgba(255,255,255,0.06)",border:"1px solid rgba(255,255,255,0.1)",
+                    borderRadius:"10px",color:"#f1f5f9",fontSize:"0.9rem",fontFamily:"Sora,sans-serif",outline:"none",boxSizing:"border-box"}} />
                 </div>
                 <button className="btn-primary" onClick={handleAdminResetPass} disabled={loading}>
                   {loading ? "Saving..." : "reset password"}
