@@ -40,7 +40,6 @@ function CandidateDashboard() {
       setTotalVotes(results.reduce((s, c) => s + (c.votes || 0), 0));
       setElectionStatus(status);
 
-      // Update my votes
       const me = sorted.find(c => c._id === candidate._id || c.name === candidate.name);
       if (me) {
         const updated = { ...candidate, votes: me.votes };
@@ -88,7 +87,24 @@ function CandidateDashboard() {
   const getPhoto = (name, photo) =>
     photo || `https://ui-avatars.com/api/?name=${encodeURIComponent(name || "C")}&size=100&background=374151&color=fff&rounded=true`;
 
-  const myRank = candidates.findIndex(c => c._id === candidateData?._id || c.name === candidateData?.name) + 1;
+  // ── Tie-aware rank ─────────────────────────────────────────────────────────
+  // Kitne candidates ke votes MUJHSE ZYADA hain? Usse +1 = meri rank
+  // Agar dono ke votes same hain → dono ki rank same hogi (#1 = #1)
+  const getMyRank = () => {
+    if (!candidateData || candidates.length === 0) return null;
+    const myVotes = candidates.find(c => c._id === candidateData._id || c.name === candidateData.name)?.votes ?? -1;
+    if (myVotes === -1) return null;
+    const rank = candidates.filter(c => c.votes > myVotes).length + 1;
+    return rank;
+  };
+
+  // Tie-aware rank for Live Results tab (by index in sorted array)
+  const getRankByIndex = (index) => {
+    return candidates.filter((x, i) => i < index && x.votes > candidates[index].votes).length + 1;
+  };
+  // ──────────────────────────────────────────────────────────────────────────
+
+  const myRank = getMyRank();
   const fmt = (d) => d ? new Date(d).toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" }) : "";
 
   return (
@@ -147,12 +163,12 @@ function CandidateDashboard() {
                   </button>
                 </div>
 
-                {/* Stats */}
+                {/* Stats — tie-aware rank */}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "12px", marginBottom: "16px" }}>
                   {[
-                    { label: "My Votes", value: candidateData.votes || 0, color: "#2563eb" },
-                    { label: "My Rank", value: myRank > 0 ? `#${myRank}` : "—", color: "#7c3aed" },
-                    { label: "Total Votes", value: totalVotes, color: "#059669" }
+                    { label: "My Votes",    value: candidateData.votes || 0,                    color: "#2563eb" },
+                    { label: "My Rank",     value: myRank !== null ? `#${myRank}` : "—",        color: "#7c3aed" },
+                    { label: "Total Votes", value: totalVotes,                                   color: "#059669" }
                   ].map(s => (
                     <div key={s.label} style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "10px", padding: "16px", textAlign: "center" }}>
                       <div style={{ fontSize: "1.8rem", fontWeight: "800", color: s.color }}>{s.value}</div>
@@ -160,6 +176,13 @@ function CandidateDashboard() {
                     </div>
                   ))}
                 </div>
+
+                {/* Tie notice on home tab */}
+                {myRank === 1 && candidates.filter(c => c.votes === (candidateData.votes || 0)).length > 1 && (
+                  <div style={{ background: "#fef3c7", border: "1px solid #fbbf24", borderRadius: "8px", padding: "10px 14px", marginBottom: "12px", color: "#92400e", fontSize: "0.85rem" }}>
+                    ⚠️ Tie hai! Aapke votes kisi aur candidate ke barabar hain — dono ki rank #1 hai.
+                  </div>
+                )}
 
                 {/* Election Status */}
                 {electionStatus && (
@@ -226,7 +249,7 @@ function CandidateDashboard() {
           </div>
         )}
 
-        {/* LIVE RESULTS TAB */}
+        {/* LIVE RESULTS TAB — tie-aware rank */}
         {tab === "results" && (
           <div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
@@ -242,9 +265,11 @@ function CandidateDashboard() {
             {candidates.map((c, index) => {
               const percentage = totalVotes > 0 ? ((c.votes / totalVotes) * 100).toFixed(1) : 0;
               const isMe = c._id === candidateData?._id || c.name === candidateData?.name;
+              const rank = getRankByIndex(index);
+              const isTop = rank === 1;
               return (
-                <div key={c._id} style={{ background: "white", border: isMe ? "2px solid #2563eb" : index === 0 ? "2px solid #1e293b" : "1px solid #e5e7eb", borderRadius: "10px", padding: "14px 16px", marginBottom: "10px", display: "flex", alignItems: "center", gap: "14px" }}>
-                  <div style={{ fontWeight: "700", color: "#9ca3af", minWidth: "20px" }}>{index + 1}</div>
+                <div key={c._id} style={{ background: "white", border: isMe ? "2px solid #2563eb" : isTop ? "2px solid #1e293b" : "1px solid #e5e7eb", borderRadius: "10px", padding: "14px 16px", marginBottom: "10px", display: "flex", alignItems: "center", gap: "14px" }}>
+                  <div style={{ fontWeight: "700", color: isTop ? "#1e293b" : "#9ca3af", minWidth: "24px" }}>#{rank}</div>
                   <img src={getPhoto(c.name, c.photo)} alt={c.name} style={{ width: "48px", height: "48px", borderRadius: "50%", objectFit: "cover", border: "1px solid #e5e7eb" }} />
                   <div style={{ flex: 1 }}>
                     <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "6px" }}>
@@ -259,7 +284,7 @@ function CandidateDashboard() {
                       </div>
                     </div>
                     <div style={{ background: "#e5e7eb", borderRadius: "99px", height: "6px" }}>
-                      <div style={{ background: isMe ? "#2563eb" : index === 0 ? "#1e293b" : "#9ca3af", height: "100%", borderRadius: "99px", width: `${percentage}%`, transition: "width 1s" }} />
+                      <div style={{ background: isMe ? "#2563eb" : isTop ? "#1e293b" : "#9ca3af", height: "100%", borderRadius: "99px", width: `${percentage}%`, transition: "width 1s" }} />
                     </div>
                   </div>
                 </div>
@@ -280,11 +305,18 @@ function CandidateDashboard() {
               style={{ padding: "10px 24px", background: "#1e293b", color: "white", border: "none", borderRadius: "8px", cursor: "pointer", fontWeight: "600", fontSize: "0.9rem", marginBottom: "20px" }}>
               Show Winner
             </button>
+            {showWinner && winner && winner.length > 1 && (
+              <div style={{ background: "#fef3c7", border: "1px solid #fbbf24", borderRadius: "8px", padding: "10px 14px", marginBottom: "16px", color: "#92400e", fontSize: "0.88rem" }}>
+                ⚠️ Tie! Dono candidates ke votes barabar hain — dono #1 hain.
+              </div>
+            )}
             {showWinner && winner && winner.map(w => (
-              <div key={w._id} style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "12px", padding: "28px", textAlign: "center" }}>
+              <div key={w._id} style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: "12px", padding: "28px", textAlign: "center", marginBottom: "12px" }}>
                 <img src={getPhoto(w.name, w.photo)} alt={w.name}
                   style={{ width: "100px", height: "100px", borderRadius: "50%", objectFit: "cover", border: "3px solid #2563eb", marginBottom: "16px" }} />
-                <div style={{ fontSize: "0.78rem", color: "#6b7280", marginBottom: "4px" }}>Winner</div>
+                <div style={{ fontSize: "0.78rem", color: "#6b7280", marginBottom: "4px" }}>
+                  {winner.length > 1 ? "🏆 Tie — Joint Winner" : "🏆 Winner"}
+                </div>
                 <div style={{ fontSize: "1.4rem", fontWeight: "700", color: "#111827" }}>{w.name}</div>
                 {w.qualification && <div style={{ color: "#6b7280", fontSize: "0.85rem" }}>{w.qualification}</div>}
                 <div style={{ color: "#6b7280", fontSize: "0.85rem", marginBottom: "16px" }}>{w.subject}</div>
@@ -294,7 +326,7 @@ function CandidateDashboard() {
                 </div>
                 {(w._id === candidateData?._id || w.name === candidateData?.name) && (
                   <div style={{ background: "#f0fdf4", border: "1px solid #bbf7d0", borderRadius: "8px", padding: "10px", marginTop: "14px", color: "#166534", fontSize: "0.88rem" }}>
-                    Congratulations! Aap winner hain!
+                    🎉 Congratulations! Aap winner hain!
                   </div>
                 )}
               </div>
