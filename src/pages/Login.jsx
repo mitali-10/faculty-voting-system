@@ -367,7 +367,7 @@ export default function Login() {
 
         <div className="card">
           <div className="logo-row">
-            <div className="logo-icon">🗳</div>
+            <div className="logo-icon"></div>
             <div>
               <div className="logo-text">Faculty Voting System</div>
               <div className="logo-sub">CSE Department</div>
