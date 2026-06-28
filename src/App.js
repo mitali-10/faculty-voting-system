@@ -7,6 +7,7 @@ import Vote from "./pages/Vote";
 import Success from "./pages/Success";
 import Result from "./pages/Result";
 import CandidateDashboard from "./pages/CandidateDashboard";
+import Chatbot from "./pages/Chatbot";
 
 function App() {
   return (
@@ -29,6 +30,9 @@ function App() {
           <ProtectedRoute allowedRole="candidate"><CandidateDashboard /></ProtectedRoute>
         } />
       </Routes>
+
+      {/* Chatbot — sab pages pe dikhega */}
+      <Chatbot />
     </Router>
   );
 }
