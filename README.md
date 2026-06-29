@@ -6,7 +6,39 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm start`# 🗳️ Faculty Voting System
+
+A full-stack web application that enables students to securely cast votes for faculty elections, with dedicated admin controls for managing the voting process.
+
+##  Features
+- Secure student authentication with one-person-one-vote validation
+- Admin panel to add, enable/disable, and delete student accounts
+- Real-time vote data handling via REST APIs
+- Role-based access control (Student vs Admin)
+
+##  Tech Stack
+- **Frontend:** React.js
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB
+- **Other:** REST APIs, JWT/Session-based Auth
+
+## Installation
+\`\`\`bash
+git clone https://github.com/mitali-10/faculty-voting-system.git
+cd faculty-voting-system
+npm install
+npm start
+\`\`\`
+
+##  Related Repository
+Backend repo: [faculty-voting-backend](https://github.com/mitali-10/faculty-voting-backend)
+
+##  Screenshots
+*(Add 2-3 screenshots here of login page, voting page, admin dashboard)*
+
+##  Author
+**Mitali Bhilwadiya**
+[LinkedIn](https://www.linkedin.com/in/mitali-bhilwadiya-46a534291) | [Portfolio](https://mitali10portfolio.netlify.app)
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
